@@ -25,11 +25,9 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      lerp: 0.1, // Adjusted for stability
+      lerp: 0.1,
     });
 
     // Synchronize ScrollTrigger with Lenis
@@ -38,7 +36,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     }
 
     gsap.ticker.add(update);
-    gsap.ticker.lagSmoothing(1500, 33);
+    gsap.ticker.lagSmoothing(0); // Disable lag smoothing for smoother scroll sync
 
     const resizeHandler = () => {
       setSplitText();
@@ -46,6 +44,12 @@ const MainContainer = ({ children }: PropsWithChildren) => {
       lenis.resize();
       ScrollTrigger.refresh();
     };
+
+    // Delay a light refresh to catch lazy-loaded heights
+    setTimeout(() => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+    }, 1500);
 
     resizeHandler();
     window.addEventListener("resize", resizeHandler);

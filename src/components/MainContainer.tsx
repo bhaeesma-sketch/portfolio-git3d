@@ -23,27 +23,28 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     // Premium Smooth Scroll Initialization
     const lenis = new Lenis({
-      lerp: 0.08, // Slightly smoother
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
       wheelMultiplier: 1,
-      infinite: false,
+      lerp: 0.1, // Adjusted for stability
     });
 
     // Synchronize ScrollTrigger with Lenis
-    lenis.on('scroll', () => {
-      ScrollTrigger.update();
-    });
+    function update(time: number) {
+      lenis.raf(time * 1000);
+    }
 
-    const raf = (time: number) => {
-      lenis.raf(time);
-    };
-
-    gsap.ticker.add(raf);
+    gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(1500, 33);
 
     const resizeHandler = () => {
       setSplitText();
       setIsDesktopView(window.innerWidth > 1024);
       lenis.resize();
+      ScrollTrigger.refresh();
     };
 
     resizeHandler();
@@ -51,9 +52,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
 
     return () => {
       window.removeEventListener("resize", resizeHandler);
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      gsap.ticker.remove(update);
       lenis.destroy();
     };
   }, []);

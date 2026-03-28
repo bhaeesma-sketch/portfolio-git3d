@@ -216,11 +216,14 @@
     width: 100%;
     padding: 20px 0;
     gap: 40px;
+    height: auto !important;
   }
   .work-section {
-    height: auto;
-    padding: 100px 0;
-    overflow-y: visible;
+    display: block !important;
+    height: auto !important;
+    min-height: 100vh;
+    padding: 80px 0;
+    overflow: visible !important;
   }
   .work-container {
     height: auto;

@@ -80,15 +80,17 @@ const Work = () => {
     });
 
     mm.add("(max-width: 768px)", () => {
-      // Mobile: Simple Entrance Animations
+      // Mobile: Forced visibility and safe entrance
+      gsap.set(".work-box", { opacity: 1, y: 0, scale: 1 }); // Force reset first
       gsap.from(".work-box", {
-        y: 100,
         opacity: 0,
-        duration: 1,
-        stagger: 0.3,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.15,
         scrollTrigger: {
-          trigger: ".work-flex",
-          start: "top 80%",
+          trigger: ".work-container",
+          start: "top center+=200", 
+          toggleActions: "play none none reverse"
         }
       });
     });

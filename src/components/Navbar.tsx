@@ -27,11 +27,11 @@ const Navbar = () => {
            <span className="navbar-brand-name">ABDUL BHAEES</span>
         </a>
         <a
-          href="mailto:bhaees@mail.com"
+          href="tel:+96876324797"
           className="navbar-connect"
           data-cursor="disable"
         >
-          CONNECT@BHAEES.SITE
+          +968 7632 4797
         </a>
         <ul>
           <li>

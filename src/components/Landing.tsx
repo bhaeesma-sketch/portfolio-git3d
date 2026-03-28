@@ -6,10 +6,10 @@ import { useGSAP } from "@gsap/react";
 const Landing = ({ children }: PropsWithChildren) => {
   useGSAP(() => {
     const tl = gsap.timeline();
-    tl.from(".landing-intro h2", { opacity: 0, y: 30, duration: 0.6, ease: "expo.out" })
-      .from(".landing-intro h1", { opacity: 0, scale: 0.9, duration: 0.6, ease: "expo.out" }, "-=0.6")
-      .from(".landing-info h3", { opacity: 0, x: -30, duration: 0.5 }, "-=0.8")
-      .from(".landing-info h2", { opacity: 0, y: 20, duration: 0.5, stagger: 0.2 }, "-=0.4");
+    tl.from(".landing-intro h2", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out" })
+      .from(".landing-intro h1", { opacity: 0, scale: 0.9, duration: 0.8, ease: "power3.out" }, "-=0.6")
+      .from(".landing-info h3", { opacity: 0, x: -30, duration: 0.6 }, "-=0.4")
+      .from(".landing-info-headline", { opacity: 0, y: 30, duration: 0.8, ease: "back.out(1.7)" }, "-=0.4");
   }, []);
 
   return (
@@ -27,13 +27,8 @@ const Landing = ({ children }: PropsWithChildren) => {
           <div className="landing-info">
             <h3>A Creative</h3>
             <div className="landing-info-h2-container">
-              <h2 className="landing-info-h2">
-                <div className="landing-h2-1">Designer</div>
-                <div className="landing-h2-2">Developer</div>
-              </h2>
-              <h2>
-                <div className="landing-h2-info">Developer</div>
-                <div className="landing-h2-info-1">Designer</div>
+              <h2 className="landing-info-headline">
+                Developer <span className="accent-text">& Designer</span>
               </h2>
             </div>
           </div>

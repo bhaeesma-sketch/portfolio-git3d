@@ -9,64 +9,56 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const projectData = [
   {
-    title: "Treeta POS",
-    category: "Enterprise POS Solution",
-    tools: "React, Node.js, PostgreSQL, Docker",
-    image: "/images/placeholder.webp",
-    link: "https://treeta.shop"
+    title: "B-HUB POS",
+    category: "Enterprise Store Ecosystem",
+    tools: "React, Tailwind, Node.js, PostgreSQL",
+    image: "/images/treetap_hero.png",
+    logo: "/logos/treetap_logo.png",
+    link: "https://treetap.shop"
   },
   {
-    title: "Impero Digol",
-    category: "Luxury E-commerce",
-    tools: "Next.js, Three.js, GSAP, Shopify",
-    image: "/images/placeholder.webp",
+    title: "Impero Gold",
+    category: "Luxury FinTech Solution",
+    tools: "Next.js, Framer Motion, Live Rates API",
+    image: "/images/imperogold_hero.png",
+    logo: "/logos/imperogold_logo.png",
     link: "https://imperodigolduae.com"
   },
   {
     title: "Studiolisan",
     category: "LMS Learning Platform",
-    tools: "TypeScript, React, AWS, MongoDB",
+    tools: "TypeScript, React, AWS, MongoDB Cloud",
     image: "/images/placeholder.webp",
+    logo: "",
     link: "https://studiolisan.com"
-  },
-  {
-    title: "GSAP Motion Lab",
-    category: "Interactive Design",
-    tools: "GSAP, ScrollTrigger, Canvas API",
-    image: "/images/placeholder.webp",
-    link: "#"
   }
 ];
 
 const Work = () => {
   useGSAP(() => {
-    const sections = gsap.utils.toArray(".work-box");
     const container = document.querySelector(".work-flex") as HTMLElement;
-    
-    // Calculate exact scroll width
-    const scrollWidth = container.scrollWidth - window.innerWidth;
+    if (!container) return;
 
     let tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".work-section",
         pin: true,
-        scrub: 0.4,
+        scrub: 0.8,
         start: "top top",
         end: () => `+=${container.scrollWidth}`,
         invalidateOnRefresh: true,
-        anticipatePin: 1
       }
     });
 
     tl.to(".work-flex", {
-      x: () => -(container.scrollWidth - window.innerWidth / 1.5),
-      ease: "power4.out"
+      x: () => -(container.scrollWidth - window.innerWidth / 1.8),
+      ease: "power2.out"
     });
 
     // Parallax background text
     gsap.to(".work-parallax-text", {
-      x: 1500,
-      opacity: 0.1,
+      x: 1000,
+      opacity: 0.08,
       scrollTrigger: {
         trigger: ".work-section",
         start: "top bottom",
@@ -86,18 +78,18 @@ const Work = () => {
           fontSize: '25vw', 
           fontWeight: 900, 
           color: '#38bdf8', 
-          opacity: 0.03,
+          opacity: 0.02,
           whiteSpace: 'nowrap',
           pointerEvents: 'none',
           zIndex: 0
       }}>
-        SELECTED SHOTS SELECTED SHOTS
+        LIVE PRODUCTION LIVE PRODUCTION
       </h1>
 
       <div className="work-container section-container">
         <div className="work-header">
-           <h2 className="premium-glow">My <span>Portfolio</span></h2>
-           <p className="work-description">A collection of premium digital experiences crafted with precision.</p>
+           <h2 className="premium-glow">Industry <span>Case Studies</span></h2>
+           <p className="work-description">Explore some of my high-impact, live production digital ecosystems developed for global clients.</p>
         </div>
 
         <div className="work-flex">
@@ -105,28 +97,37 @@ const Work = () => {
             <motion.div 
               className="work-box glass-card" 
               key={index}
-              whileHover={{ y: -20, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+              whileHover={{ y: -15, scale: 1.01 }}
+              transition={{ type: "spring", stiffness: 200, damping: 12 }}
+              onClick={() => project.link !== "#" && window.open(project.link, "_blank")}
             >
               <div className="work-info">
-                <div className="work-index">0{index + 1}</div>
+                <div className="work-card-top">
+                   <div className="work-index">0{index + 1}</div>
+                   {project.logo && (
+                      <div className="work-project-logo">
+                         <img src={project.logo} alt="Project Logo" />
+                      </div>
+                   )}
+                </div>
+
                 <div className="work-title">
                   <h4>{project.title}</h4>
                   <p>{project.category}</p>
                 </div>
+
                 <div className="work-tools">
-                   <h5>Tech Stack:</h5>
+                   <h5>Tech Arsenal:</h5>
                    <p>{project.tools}</p>
                 </div>
-                <a 
-                   href={project.link} 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   className="view-project-link"
-                >
-                   View Project <span>→</span>
-                </a>
+
+                {project.link !== "#" && (
+                   <div className="view-project-link">
+                      Live Environment <span>↗</span>
+                   </div>
+                )}
               </div>
+
               <div className="work-image-wrapper">
                  <WorkImage image={project.image} alt={project.title} />
                  <div className="work-image-overlay"></div>

@@ -22,15 +22,16 @@ const Navbar = () => {
   return (
     <>
       <div className="header">
-        <a href="/#" className="navbar-title" data-cursor="disable">
-          ABDUL
+        <a href="/#" className="navbar-logo-container" data-cursor="disable">
+           <img src="/images/logo.png" alt="Abdul Bhaees Logo" className="navbar-brand-logo" />
+           <span className="navbar-brand-name">ABDUL BHAEES</span>
         </a>
         <a
-          href="mailto:example@mail.com"
+          href="mailto:bhaees@mail.com"
           className="navbar-connect"
           data-cursor="disable"
         >
-          example@mail.com
+          CONNECT@BHAEES.SITE
         </a>
         <ul>
           <li>

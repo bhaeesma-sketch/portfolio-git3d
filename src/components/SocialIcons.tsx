@@ -12,10 +12,12 @@ import HoverLinks from "./HoverLinks";
 const SocialIcons = () => {
   useEffect(() => {
     const social = document.getElementById("social") as HTMLElement;
+    if (!social) return;
 
-    social.querySelectorAll("span").forEach((item) => {
+    social.querySelectorAll(".social-item").forEach((item) => {
       const elem = item as HTMLElement;
       const link = elem.querySelector("a") as HTMLElement;
+      if (!link) return;
 
       const rect = elem.getBoundingClientRect();
       let mouseX = rect.width / 2;
@@ -24,8 +26,8 @@ const SocialIcons = () => {
       let currentY = 0;
 
       const updatePosition = () => {
-        currentX += (mouseX - currentX) * 0.1;
-        currentY += (mouseY - currentY) * 0.1;
+        currentX += (mouseX - currentX) * 0.15;
+        currentY += (mouseY - currentY) * 0.15;
 
         link.style.setProperty("--siLeft", `${currentX}px`);
         link.style.setProperty("--siTop", `${currentY}px`);
@@ -37,7 +39,7 @@ const SocialIcons = () => {
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        if (x < 40 && x > 10 && y < 40 && y > 5) {
+        if (x > -20 && x < 60 && y > -20 && y < 60) {
           mouseX = x;
           mouseY = y;
         } else {
@@ -46,8 +48,7 @@ const SocialIcons = () => {
         }
       };
 
-      document.addEventListener("mousemove", onMouseMove);
-
+      elem.addEventListener("mousemove", onMouseMove);
       updatePosition();
 
       return () => {
@@ -58,29 +59,34 @@ const SocialIcons = () => {
 
   return (
     <div className="icons-section">
+      <div className="social-avatar-container">
+         <img src="/images/avatar.png" alt="Abdul" className="side-avatar" />
+      </div>
+
       <div className="social-icons" data-cursor="icons" id="social">
-        <span>
-          <a href="https://github.com" target="_blank">
+        <span className="social-item">
+          <a href="https://github.com/bhaeesmasketch" target="_blank">
             <FaGithub />
           </a>
         </span>
-        <span>
+        <span className="social-item">
           <a href="https://www.linkedin.com" target="_blank">
             <FaLinkedinIn />
           </a>
         </span>
-        <span>
+        <span className="social-item">
           <a href="https://x.com" target="_blank">
             <FaXTwitter />
           </a>
         </span>
-        <span>
+        <span className="social-item">
           <a href="https://www.instagram.com" target="_blank">
             <FaInstagram />
           </a>
         </span>
       </div>
-      <a className="resume-button" href="#">
+      
+      <a className="resume-button" href="#contact">
         <HoverLinks text="RESUME" />
         <span>
           <TbNotes />

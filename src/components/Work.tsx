@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(ScrollTrigger);
 
 const projectData = [
   {
@@ -99,6 +99,7 @@ const Work = () => {
   return (
     <div className="work-section" id="work">
       {/* Background Parallax Text */}
+      {/* Background Parallax Text - Hidden on Mobile */}
       <h1 className="work-parallax-text" style={{ 
           position: 'absolute', 
           top: '20%', 
@@ -109,7 +110,8 @@ const Work = () => {
           opacity: 0.02,
           whiteSpace: 'nowrap',
           pointerEvents: 'none',
-          zIndex: 0
+          zIndex: 0,
+          display: window.innerWidth < 769 ? 'none' : 'block' // Responsive check
       }}>
         LIVE PRODUCTION LIVE PRODUCTION
       </h1>

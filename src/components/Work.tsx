@@ -39,45 +39,61 @@ const Work = () => {
     const container = document.querySelector(".work-flex") as HTMLElement;
     if (!container) return;
 
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".work-section",
-        pin: true,
-        scrub: 1, // Smoother scrub
-        start: "top top",
-        end: () => `+=${container.scrollWidth}`,
-        invalidateOnRefresh: true,
-        anticipatePin: 1,
-      }
+    let mm = gsap.matchMedia();
+
+    mm.add("(min-width: 769px)", () => {
+      // Desktop: Horizontal Scroll
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".work-section",
+          pin: true,
+          scrub: 1,
+          start: "top top",
+          end: () => `+=${container.scrollWidth}`,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+        }
+      });
+
+      tl.to(".work-flex", {
+        x: () => -(container.scrollWidth - window.innerWidth / 1.5),
+        ease: "none"
+      });
+
+      tl.to(".work-box", {
+        skewX: 1.5,
+        scale: 0.98,
+        stagger: 0.1,
+        duration: 0.1
+      }, 0);
+
+      gsap.to(".work-parallax-text", {
+        x: 800,
+        opacity: 0.12,
+        scrollTrigger: {
+          trigger: ".work-section",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.5
+        }
+      });
     });
 
-    tl.to(".work-flex", {
-      x: () => -(container.scrollWidth - window.innerWidth / 1.5), // Adjusted for better centering
-      ease: "none" // Linear eases are better for scrub
+    mm.add("(max-width: 768px)", () => {
+      // Mobile: Simple Entrance Animations
+      gsap.from(".work-box", {
+        y: 100,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.3,
+        scrollTrigger: {
+          trigger: ".work-flex",
+          start: "top 80%",
+        }
+      });
     });
 
-    // Add skew effect during scroll for premium feel
-    tl.to(".work-box", {
-      skewX: 1.5,
-      scale: 0.98,
-      stagger: {
-        each: 0.1,
-        from: "start"
-      },
-      duration: 0.1
-    }, 0);
-
-    // Parallax background text
-    gsap.to(".work-parallax-text", {
-      x: 800,
-      opacity: 0.12,
-      scrollTrigger: {
-        trigger: ".work-section",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1.5
-      }
-    });
+    return () => mm.revert();
   }, []);
 
   return (

@@ -43,10 +43,11 @@ const Work = () => {
       scrollTrigger: {
         trigger: ".work-section",
         pin: true,
-        scrub: 0.8,
+        scrub: 1.2,
         start: "top top",
         end: () => `+=${container.scrollWidth}`,
         invalidateOnRefresh: true,
+        anticipatePin: 1,
       }
     });
 

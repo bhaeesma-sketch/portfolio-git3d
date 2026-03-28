@@ -34,11 +34,11 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     });
 
     const raf = (time: number) => {
-      lenis.raf(time * 1000);
+      lenis.raf(time);
     };
 
     gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(1500, 33);
 
     const resizeHandler = () => {
       setSplitText();

@@ -85,7 +85,13 @@ const TechStack = () => {
       <Canvas
         camera={{ position: [0, 0, 22], fov: 40 }}
         style={{ background: 'transparent' }}
-        gl={{ antialias: true, stencil: false, depth: true, powerPreference: 'high-performance' }}
+        dpr={[1, 2]}
+        gl={{ 
+            antialias: false, 
+            stencil: false, 
+            depth: true, 
+            powerPreference: 'high-performance' 
+        }}
       >
         <ambientLight intensity={0.4} />
         <pointLight position={[10, 25, 10]} intensity={2.5} color="#38bdf8" />

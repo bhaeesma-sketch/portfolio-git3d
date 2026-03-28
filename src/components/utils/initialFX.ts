@@ -17,12 +17,12 @@ export function initialFX() {
     { opacity: 0, y: 40, filter: "blur(5px)" },
     {
       opacity: 1,
-      duration: 1.2,
+      duration: 0.8,
       filter: "blur(0px)",
-      ease: "power3.out",
+      ease: "expo.out",
       y: 0,
-      stagger: 0.1,
-      delay: 0.3,
+      stagger: 0.08,
+      delay: 0.1,
     }
   );
 

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { useRef, useMemo, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Environment, ContactShadows, Text } from "@react-three/drei";
+import { Float, Environment, ContactShadows } from "@react-three/drei";
 import { EffectComposer, Bloom, ChromaticAberration } from "@react-three/postprocessing";
 
 const textureLoader = new THREE.TextureLoader();
@@ -112,7 +112,7 @@ const TechStack = () => {
         <ContactShadows opacity={0.3} scale={30} blur={2} far={6} position={[0, -10, 0]} />
         
         {/* Post-Processing Bloom for that "Glowing" Look */}
-        <EffectComposer disableNormalPass>
+        <EffectComposer>
             <Bloom 
                 intensity={1.2} 
                 luminanceThreshold={0.2} 
@@ -121,6 +121,8 @@ const TechStack = () => {
             />
             <ChromaticAberration 
                 offset={new THREE.Vector2(0.001, 0.001)} 
+                radialModulation={false}
+                modulationOffset={0}
             />
         </EffectComposer>
 

@@ -5,11 +5,42 @@ import { useGSAP } from "@gsap/react";
 
 const Landing = ({ children }: PropsWithChildren) => {
   useGSAP(() => {
-    const tl = gsap.timeline();
-    tl.from(".landing-intro h2", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out" })
-      .from(".landing-intro h1", { opacity: 0, scale: 0.9, duration: 0.8, ease: "power3.out" }, "-=0.6")
-      .from(".landing-info h3", { opacity: 0, x: -30, duration: 0.6 }, "-=0.4")
-      .from(".landing-info-headline", { opacity: 0, y: 30, duration: 0.8, ease: "back.out(1.7)" }, "-=0.4");
+    const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+    
+    tl.from(".landing-intro h2", { 
+      opacity: 0, 
+      y: 50, 
+      filter: "blur(10px)",
+      duration: 1.2 
+    })
+    .from(".landing-intro h1", { 
+      opacity: 0, 
+      y: 100,
+      rotateX: 45,
+      filter: "blur(20px)",
+      stagger: 0.2,
+      duration: 1.5 
+    }, "-=0.8")
+    .from(".landing-info h3", { 
+      opacity: 0, 
+      scale: 0.8,
+      duration: 1 
+    }, "-=1")
+    .from(".landing-info-headline", { 
+      opacity: 0, 
+      y: 20, 
+      duration: 1.2, 
+      ease: "power4.out" 
+    }, "-=0.8");
+    
+    // Smooth hover effect for the main name
+    gsap.to(".landing-intro h1 span", {
+      color: "#38bdf8",
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
   }, []);
 
   return (

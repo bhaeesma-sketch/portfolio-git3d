@@ -6,7 +6,7 @@
   font-optical-sizing: auto;
   font-style: normal;
   line-height: 1.5;
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Required for Lenis */
   color-scheme: light dark;
   color: var(--textColor);
   background-color: var(--backgroundColor);

@@ -28,8 +28,8 @@ const projectData = [
     title: "Studiolisan",
     category: "LMS Learning Platform",
     tools: "TypeScript, React, AWS, MongoDB Cloud",
-    image: "/images/placeholder.webp",
-    logo: "",
+    image: "/images/studiolisan_hero.jpg",
+    logo: "/logos/studiolisan_logo.png",
     link: "https://studiolisan.com"
   }
 ];
@@ -43,7 +43,7 @@ const Work = () => {
       scrollTrigger: {
         trigger: ".work-section",
         pin: true,
-        scrub: 1.2,
+        scrub: 1, // Smoother scrub
         start: "top top",
         end: () => `+=${container.scrollWidth}`,
         invalidateOnRefresh: true,
@@ -52,19 +52,30 @@ const Work = () => {
     });
 
     tl.to(".work-flex", {
-      x: () => -(container.scrollWidth - window.innerWidth / 1.8),
-      ease: "power2.out"
+      x: () => -(container.scrollWidth - window.innerWidth / 1.5), // Adjusted for better centering
+      ease: "none" // Linear eases are better for scrub
     });
+
+    // Add skew effect during scroll for premium feel
+    tl.to(".work-box", {
+      skewX: 1.5,
+      scale: 0.98,
+      stagger: {
+        each: 0.1,
+        from: "start"
+      },
+      duration: 0.1
+    }, 0);
 
     // Parallax background text
     gsap.to(".work-parallax-text", {
-      x: 1000,
-      opacity: 0.08,
+      x: 800,
+      opacity: 0.12,
       scrollTrigger: {
         trigger: ".work-section",
         start: "top bottom",
         end: "bottom top",
-        scrub: true
+        scrub: 1.5
       }
     });
   }, []);

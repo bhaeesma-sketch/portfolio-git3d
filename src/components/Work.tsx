@@ -41,7 +41,7 @@ const Work = () => {
 
     let mm = gsap.matchMedia();
 
-    mm.add("(min-width: 769px)", () => {
+    mm.add("(min-width: 1025px)", () => {
       // Desktop: Horizontal Scroll
       let tl = gsap.timeline({
         scrollTrigger: {
@@ -79,20 +79,25 @@ const Work = () => {
       });
     });
 
-    mm.add("(max-width: 768px)", () => {
-      // Mobile: Forced visibility and safe entrance
-      gsap.set(".work-box", { opacity: 1, y: 0, scale: 1 }); // Force reset first
-      gsap.from(".work-box", {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: ".work-container",
-          start: "top center+=200", 
-          toggleActions: "play none none reverse"
+    mm.add("(max-width: 1024px)", () => {
+      // Mobile: Robust Vertical Entrance
+      gsap.fromTo(".work-box", 
+        { 
+          opacity: 0, 
+          y: 40 
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: ".work-flex",
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+          }
         }
-      });
+      );
     });
 
     return () => mm.revert();
@@ -113,7 +118,7 @@ const Work = () => {
           whiteSpace: 'nowrap',
           pointerEvents: 'none',
           zIndex: 0,
-          display: window.innerWidth < 769 ? 'none' : 'block' // Responsive check
+          display: window.innerWidth < 1025 ? 'none' : 'block' // Match new breakpoint
       }}>
         LIVE PRODUCTION LIVE PRODUCTION
       </h1>

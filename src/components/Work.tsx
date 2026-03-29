@@ -42,21 +42,26 @@ const Work = () => {
     let mm = gsap.matchMedia();
 
     mm.add("(min-width: 1025px)", () => {
-      // Desktop: Horizontal Scroll
+      // Desktop: Accurate 1:1 Horizontal Scroll
+      const getScrollAmount = () => {
+        let amount = container.scrollWidth - window.innerWidth;
+        return amount > 0 ? amount : 0;
+      };
+
       let tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".work-section",
           pin: true,
           scrub: 1,
           start: "top top",
-          end: () => `+=${container.scrollWidth}`,
+          end: () => `+=${getScrollAmount()}`,
           invalidateOnRefresh: true,
           anticipatePin: 1,
         }
       });
 
       tl.to(".work-flex", {
-        x: () => -(container.scrollWidth - window.innerWidth / 1.5),
+        x: () => -getScrollAmount(),
         ease: "none"
       });
 

@@ -73,7 +73,7 @@ const Scene = () => {
                 const mat = mesh.material as THREE.MeshStandardMaterial;
                 // If it's a violet/pink emissive color, change it to sapphire blue
                 if (mat.emissive.getHex() === 0xfb8dff || mat.emissive.getHex() === 0xc481ff || mat.emissive.r > 0.5 && mat.emissive.b > 0.5) {
-                   mat.emissive.setHex(0x38bdf8);
+                   mat.emissive.setHex(0x6366f1);
                 }
               }
             }

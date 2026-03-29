@@ -211,26 +211,30 @@
 }
 
 @media (max-width: 1024px) {
+  .work-parallax-text {
+    display: none !important;
+  }
   .work-flex {
     flex-direction: column;
     width: 100% !important;
     max-width: 100vw !important;
     padding: 20px 0;
-    gap: 40px;
+    gap: 60px; /* Better spacing */
     height: auto !important;
   }
   .work-section {
     display: block !important;
     height: auto !important;
     min-height: 100vh;
-    padding: 80px 0;
+    padding: 60px 0;
     overflow: visible !important;
     width: 100% !important;
+    background: #000;
   }
   .work-container {
     height: auto !important;
     width: 100% !important;
-    padding: 0 15px;
+    padding: 0 20px !important;
   }
   .work-box {
     width: 100% !important;
@@ -239,6 +243,9 @@
     flex-direction: column-reverse;
     margin: 0 !important;
     position: relative !important;
+    border-radius: 24px !important; /* Premium rounded cards */
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
   }
   .work-info {
     width: 100%;
@@ -246,9 +253,14 @@
   }
   .work-image-wrapper {
     width: 100%;
-    height: 250px;
+    height: 240px; /* Refined image height */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
   .work-title h4 {
     font-size: 2.2rem;
+  }
+  .work-header h2 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
   }
 }

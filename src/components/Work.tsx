@@ -122,8 +122,7 @@ const Work = () => {
           opacity: 0.02,
           whiteSpace: 'nowrap',
           pointerEvents: 'none',
-          zIndex: 0,
-          display: window.innerWidth < 1025 ? 'none' : 'block' // Match new breakpoint
+          zIndex: 0
       }}>
         LIVE PRODUCTION LIVE PRODUCTION
       </h1>

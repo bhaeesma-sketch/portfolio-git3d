@@ -42,7 +42,7 @@ const Work = () => {
     let mm = gsap.matchMedia();
 
     mm.add("(min-width: 1025px)", () => {
-      // Desktop: Accurate 1:1 Horizontal Scroll
+      // Desktop: Ultra-Smooth Horizontal Scroll
       const getScrollAmount = () => {
         let amount = container.scrollWidth - window.innerWidth;
         return amount > 0 ? amount : 0;
@@ -52,7 +52,7 @@ const Work = () => {
         scrollTrigger: {
           trigger: ".work-section",
           pin: true,
-          scrub: 1,
+          scrub: 1.5, // Heavier, more premium scrub
           start: "top top",
           end: () => `+=${getScrollAmount()}`,
           invalidateOnRefresh: true,
@@ -65,12 +65,31 @@ const Work = () => {
         ease: "none"
       });
 
-      tl.to(".work-box", {
-        skewX: 1.5,
-        scale: 0.98,
-        stagger: 0.1,
-        duration: 0.1
-      }, 0);
+      // Cinematic Card Micro-Animations
+      projectData.forEach((_, i) => {
+        tl.fromTo(`.work-box:nth-child(${i + 1})`, 
+          { 
+            scale: 0.9,
+            rotateZ: -1,
+            filter: "blur(2px)",
+          },
+          {
+            scale: 1,
+            rotateZ: 0,
+            filter: "blur(0px)",
+            duration: 0.5,
+            ease: "power2.out"
+          }, 
+          (i / projectData.length) * 0.8 // Staggered over timeline
+        );
+        
+        // Inner text parallax
+        tl.fromTo(`.work-box:nth-child(${i + 1}) .work-info`, 
+           { x: 30 }, 
+           { x: 0, duration: 0.5 }, 
+           (i / projectData.length) * 0.8
+        );
+      });
 
       gsap.to(".work-parallax-text", {
         x: 800,
@@ -79,7 +98,7 @@ const Work = () => {
           trigger: ".work-section",
           start: "top bottom",
           end: "bottom top",
-          scrub: 1.5
+          scrub: 2
         }
       });
     });

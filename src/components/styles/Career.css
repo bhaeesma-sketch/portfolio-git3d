@@ -17,7 +17,7 @@
   line-height: 70px;
   font-weight: 400;
   text-align: center;
-  background: linear-gradient(0deg, #38bdf8, #ffffff);
+  background: linear-gradient(0deg, #6366f1, #ffffff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -83,7 +83,7 @@
   height: 100%;
   background-image: linear-gradient(
     to top,
-    #38bdf8 20%,
+    #6366f1 20%,
     var(--accentColor) 50%,
     transparent 95%
   );
@@ -94,7 +94,7 @@
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 50%);
-  background-color: #38bdf8;
+  background-color: #6366f1;
   width: 10px;
   height: 10px;
   border-radius: 50px;
@@ -109,7 +109,7 @@
   50%,
   70%,
   90% {
-    box-shadow: 0px 0px 5px 2px #38bdf8;
+    box-shadow: 0px 0px 5px 2px #6366f1;
   }
   10%,
   30%,
@@ -123,7 +123,7 @@
 }
 @keyframes timeline2 {
   0% {
-    box-shadow: 0px 0px 5px 2px #38bdf8;
+    box-shadow: 0px 0px 5px 2px #6366f1;
   }
   100% {
     box-shadow: 0px 0px 5px 2px #7dd3fc, 0px 0px 15px 5px #0ea5e9,

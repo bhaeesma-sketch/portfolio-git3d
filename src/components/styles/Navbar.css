@@ -59,8 +59,8 @@
 
 .navbar-connect:hover {
   opacity: 1;
-  color: #38bdf8;
-  border-color: #38bdf8;
+  color: #6366f1;
+  border-color: #6366f1;
   background: rgba(56, 189, 248, 0.05);
 }
 
@@ -84,7 +84,7 @@
 
 .header ul li a:hover {
   opacity: 1;
-  color: #38bdf8;
+  color: #6366f1;
 }
 
 @media (max-width: 900px) {

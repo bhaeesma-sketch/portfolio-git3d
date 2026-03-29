@@ -118,7 +118,7 @@ const Work = () => {
           left: '-20%', 
           fontSize: '25vw', 
           fontWeight: 900, 
-          color: '#38bdf8', 
+          color: '#6366f1', 
           opacity: 0.02,
           whiteSpace: 'nowrap',
           pointerEvents: 'none',

@@ -242,7 +242,7 @@
   backdrop-filter: blur(4px);
   border: 1px solid rgba(56, 189, 248, 0.2);
   border-radius: 30px;
-  color: #38bdf8;
+  color: #6366f1;
 }
 @media only screen and (max-width: 1600px) {
   .what-box h2 {

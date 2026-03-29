@@ -16,6 +16,8 @@ const techItems = [
   { name: "MySQL", url: "/images/mysql.webp" }
 ];
 
+const THEME_COLOR = "#6366f1"; // Deep Indigo
+
 function PremiumIcon({ url, index, total }: { url: string; index: number; total: number }) {
   const meshRef = useRef<THREE.Mesh>(null!);
   const [hovered, setHovered] = useState(false);
@@ -59,19 +61,19 @@ function PremiumIcon({ url, index, total }: { url: string; index: number; total:
         transparent 
         roughness={0.05} 
         metalness={0.9}
-        emissive="#38bdf8"
+        emissive={THEME_COLOR}
         emissiveIntensity={hovered ? 2.5 : 0.6}
       />
       {/* Glossy Front Layer */}
       <mesh position={[0, 0, 0.08]}>
         <planeGeometry args={[3.2, 3.2]} />
         <meshStandardMaterial 
-            color="#38bdf8" 
+            color={THEME_COLOR} 
             transparent 
             opacity={0.15} 
             roughness={0} 
             metalness={1}
-            emissive="#38bdf8"
+            emissive={THEME_COLOR}
             emissiveIntensity={hovered ? 1.5 : 0.2}
         />
       </mesh>
@@ -94,7 +96,7 @@ const TechStack = () => {
         }}
       >
         <ambientLight intensity={0.4} />
-        <pointLight position={[10, 25, 10]} intensity={2.5} color="#38bdf8" />
+        <pointLight position={[10, 25, 10]} intensity={2.5} color={THEME_COLOR} />
         <spotLight position={[-15, 20, 15]} angle={0.25} penumbra={1} intensity={2} castShadow />
         
         <group rotation={[Math.PI / 12, 0, 0]}>
@@ -130,11 +132,11 @@ const TechStack = () => {
         <Float speed={3} rotationIntensity={1.5} floatIntensity={2}>
            <mesh position={[-12, 6, -10]}>
              <torusGeometry args={[1.5, 0.1, 16, 100]} />
-             <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={3} />
+             <meshStandardMaterial color={THEME_COLOR} emissive={THEME_COLOR} emissiveIntensity={3} />
            </mesh>
            <mesh position={[12, -6, -10]}>
              <boxGeometry args={[1, 1, 1]} />
-             <meshStandardMaterial color="#38bdf8" emissive="#38bdf8" emissiveIntensity={3} wireframe />
+             <meshStandardMaterial color={THEME_COLOR} emissive={THEME_COLOR} emissiveIntensity={3} wireframe />
            </mesh>
         </Float>
       </Canvas>

@@ -35,7 +35,7 @@ const Landing = ({ children }: PropsWithChildren) => {
     
     // Smooth hover effect for the main name
     gsap.to(".landing-intro h1 span", {
-      color: "#38bdf8",
+      color: "#6366f1",
       duration: 2,
       repeat: -1,
       yoyo: true,

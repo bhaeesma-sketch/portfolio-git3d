@@ -31,7 +31,7 @@
   text-transform: uppercase;
   font-weight: 700;
   margin: 0;
-  background: linear-gradient(0deg, #38bdf8, #fff);
+  background: linear-gradient(0deg, #6366f1, #fff);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -147,7 +147,7 @@
 .view-project-link {
   font-size: 1rem;
   font-weight: 600;
-  color: #38bdf8;
+  color: #6366f1;
   display: flex;
   align-items: center;
   gap: 8px;

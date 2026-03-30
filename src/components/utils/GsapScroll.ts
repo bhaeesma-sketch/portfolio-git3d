@@ -6,7 +6,7 @@ export function setCharTimeline(
   character: THREE.Object3D<THREE.Object3DEventMap> | null,
   camera: THREE.PerspectiveCamera
 ) {
-  // Kill existing triggers to prevent stacking
+  // Kill existing triggers to prevent stacking glitches
   ScrollTrigger.getById("charTL1")?.kill();
   ScrollTrigger.getById("charTL2")?.kill();
   ScrollTrigger.getById("charTL3")?.kill();
@@ -42,14 +42,28 @@ export function setCharTimeline(
     },
   });
 
-  let screenLight: THREE.Mesh | undefined;
-  character?.traverse((object: THREE.Object3D) => {
-    // Hide large props that block views
-    const n = object.name.toLowerCase();
-    if (n.includes("plane") || n.includes("monitor") || n.includes("screen") || n.includes("desk")) {
-        object.visible = false;
+  let screenLight: THREE.Mesh | undefined, monitor: THREE.Mesh | undefined;
+  
+  character?.children.forEach((object: THREE.Object3D) => {
+    // Specifically handle the problematic Plane004 as originally intended
+    if (object.name === "Plane004") {
+      object.children.forEach((child: THREE.Object3D) => {
+        if (child instanceof THREE.Mesh) {
+          const mesh = child as THREE.Mesh;
+          if (mesh.material instanceof THREE.Material) {
+            mesh.material.transparent = true;
+            mesh.material.opacity = 0;
+            if (mesh.material.name === "Material.027") {
+              monitor = mesh;
+              if ("color" in mesh.material) {
+                (mesh.material as THREE.MeshStandardMaterial).color.set("#FFFFFF");
+              }
+            }
+          }
+        }
+      });
     }
-    
+
     if (object.name === "screenlight" && object instanceof THREE.Mesh) {
       const mesh = object as THREE.Mesh;
       if (mesh.material instanceof THREE.MeshStandardMaterial) {
@@ -93,6 +107,16 @@ export function setCharTimeline(
         )
         .to(character.rotation, { y: 0.92, x: 0.12, delay: 3, duration: 3 }, 0)
         .to(neckBone!.rotation, { x: 0.6, delay: 2, duration: 3 }, 0);
+
+      if (monitor) {
+        tl2.to(monitor.material, { opacity: 1, duration: 0.8, delay: 3.2 }, 0)
+          .fromTo(
+            monitor.position,
+            { y: -10, z: 2 },
+            { y: 0, z: 0, delay: 1.5, duration: 3 },
+            0
+          );
+      }
 
       if (screenLight) {
         tl2.to(screenLight.material, { opacity: 1, duration: 0.8, delay: 4.5 }, 0);

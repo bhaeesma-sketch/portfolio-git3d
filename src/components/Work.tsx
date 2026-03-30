@@ -41,64 +41,32 @@ const Work = () => {
 
   useGSAP(() => {
     if (!sectionRef.current || !flexRef.current) return;
-
+    const container = flexRef.current;
+    
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1025px)", () => {
-      // Desktop: Ultra-Smooth Horizontal Scroll
-      const getScrollAmount = () => {
-        if (!flexRef.current) return 0;
-        return flexRef.current.scrollWidth - window.innerWidth;
-      };
-
+      // Desktop: Restored Original Horizontal Scroll
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           pin: true,
-          scrub: 1.5,
+          scrub: 0.8,
           start: "top top",
-          end: () => `+=${getScrollAmount()}`,
+          end: () => `+=${container.scrollWidth}`,
           invalidateOnRefresh: true,
-          anticipatePin: 1,
         }
       });
 
       tl.to(flexRef.current, {
-        x: () => -getScrollAmount(),
-        ease: "none"
+        x: () => -(container.scrollWidth - window.innerWidth / 1.8),
+        ease: "power2.out"
       });
 
-      // Cinematic Card Micro-Animations
-      projectData.forEach((_, i) => {
-        const box = `.work-box:nth-child(${i + 1})`;
-        const info = `${box} .work-info`;
-        
-        tl.fromTo(box, 
-          { 
-            scale: 0.9,
-            rotateZ: -1,
-            filter: "blur(2px)",
-          },
-          {
-            scale: 1,
-            rotateZ: 0,
-            filter: "blur(0px)",
-            duration: 0.5,
-            ease: "power2.out"
-          }, 
-          (i / projectData.length) * 0.8
-        );
-        
-        tl.fromTo(info, 
-           { x: 30 }, 
-           { x: 0, duration: 0.5 }, 
-           (i / projectData.length) * 0.8
-        );
-      });
-
+      // Original Parallax background text
       gsap.to(".work-parallax-text", {
-        x: 800,
-        opacity: 0.12,
+        x: 1000,
+        opacity: 0.08,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top bottom",

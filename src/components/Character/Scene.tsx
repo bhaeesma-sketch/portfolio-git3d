@@ -79,11 +79,6 @@ const Scene = () => {
       screenLight = loadedChar.getObjectByName("screenlight") || null;
       
       loadedChar.traverse((node) => {
-        const n = node.name.toLowerCase();
-        if (n.includes("plane") || n.includes("monitor") || n.includes("screen") || n.includes("desk")) {
-            node.visible = false;
-        }
-
         if (node instanceof THREE.Mesh) {
           const mat = node.material as THREE.MeshStandardMaterial;
           if (mat && mat.emissive) {

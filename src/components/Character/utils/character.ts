@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { DRACOLoader, GLTF, GLTFLoader } from "three-stdlib";
-import { setCharTimeline, setAllTimeline } from "../../utils/GsapScroll";
 import { decryptFile } from "./decrypt";
 
 const setCharacter = (
@@ -28,18 +27,14 @@ const setCharacter = (
             const character = gltf.scene;
             await renderer.compileAsync(character, camera, scene);
             character.traverse((child: THREE.Object3D) => {
-              if (child.isObject3D) {
                 const mesh = child as THREE.Mesh;
                 if (mesh.isMesh) {
                   mesh.castShadow = true;
                   mesh.receiveShadow = true;
                   mesh.frustumCulled = true;
                 }
-              }
             });
             resolve(gltf);
-            setCharTimeline(character, camera);
-            setAllTimeline();
             
             const footR = character.getObjectByName("footR");
             const footL = character.getObjectByName("footL");

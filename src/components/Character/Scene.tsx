@@ -12,6 +12,7 @@ import {
 } from "./utils/mouseUtils";
 import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../utils/loadingProgress";
+import { setAllTimeline, setCharTimeline } from "../utils/GsapScroll";
 
 const Scene = () => {
   const canvasDiv = useRef<HTMLDivElement | null>(null);
@@ -45,7 +46,7 @@ const Scene = () => {
     currentCanvas.appendChild(renderer.domElement);
 
     const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
-    camera.position.set(0, 11.5, 24.7);
+    camera.position.set(0, 13.1, 24.7);
     camera.zoom = 1.1;
     camera.updateProjectionMatrix();
 
@@ -70,6 +71,9 @@ const Scene = () => {
       mixer = animations.mixer;
       const loadedChar = gltf.scene;
       scene.add(loadedChar);
+
+      setCharTimeline(loadedChar, camera);
+      setAllTimeline();
       
       headBone = loadedChar.getObjectByName("spine006") || null;
       screenLight = loadedChar.getObjectByName("screenlight") || null;
@@ -83,7 +87,8 @@ const Scene = () => {
         if (node instanceof THREE.Mesh) {
           const mat = node.material as THREE.MeshStandardMaterial;
           if (mat && mat.emissive) {
-            if (mat.emissive.getHex() === 0xfb8dff || mat.emissive.getHex() === 0xc481ff || (mat.emissive.r > 0.5 && mat.emissive.b > 0.5)) {
+            const hex = mat.emissive.getHex();
+            if (hex === 0xfb8dff || hex === 0xc481ff || (mat.emissive.r > 0.5 && mat.emissive.b > 0.5)) {
                mat.emissive.setHex(0x6366f1);
             }
           }

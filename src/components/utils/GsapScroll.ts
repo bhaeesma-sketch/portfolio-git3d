@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function setCharTimeline(
   character: THREE.Object3D<THREE.Object3DEventMap> | null,
@@ -40,22 +41,15 @@ export function setCharTimeline(
       invalidateOnRefresh: true,
     },
   });
+
   let screenLight: THREE.Mesh | undefined;
   character?.traverse((object: THREE.Object3D) => {
-    // Aggressively hide any non-character prop models that might clip the view
+    // Hide large props that block views
     const n = object.name.toLowerCase();
-    if (n.includes("plane") || n.includes("monitor") || n.includes("screen") || n.includes("desk") || n.includes("table")) {
+    if (n.includes("plane") || n.includes("monitor") || n.includes("screen") || n.includes("desk")) {
         object.visible = false;
     }
     
-    // Specifically target the large white box mesh
-    if (object instanceof THREE.Mesh) {
-       // If it's a huge white plane (often name 'Plane004' or 'Plane')
-       if (n === "plane004" || n === "plane") {
-           object.visible = false;
-       }
-    }
-
     if (object.name === "screenlight" && object instanceof THREE.Mesh) {
       const mesh = object as THREE.Mesh;
       if (mesh.material instanceof THREE.MeshStandardMaterial) {
@@ -71,16 +65,17 @@ export function setCharTimeline(
       }
     }
   });
+
   const neckBone = character?.getObjectByName("spine005");
   if (window.innerWidth > 1024) {
     if (character) {
       tl1
         .fromTo(character.rotation, { y: 0 }, { y: 0.7, duration: 1 }, 0)
-        .to(camera.position, { z: 22, y: 13.1 }, 0)
+        .to(camera.position, { z: 22 }, 0)
         .fromTo(".character-model", { x: 0 }, { x: "-25%", duration: 1 }, 0)
         .to(".landing-container", { opacity: 0, duration: 0.4 }, 0)
         .to(".landing-container", { y: "40%", duration: 0.8 }, 0)
-        .fromTo(".about-me", { y: "-50%" }, { y: "0%", duration: 1 }, 0);
+        .fromTo(".about-me", { y: "-50%" }, { y: "0%" }, 0);
 
       tl2
         .to(
@@ -145,7 +140,7 @@ export function setAllTimeline() {
     scrollTrigger: {
       trigger: ".career-section",
       start: "top 30%",
-      end: "100% center",
+      end: "center center",
       scrub: true,
       invalidateOnRefresh: true,
     },
@@ -157,7 +152,6 @@ export function setAllTimeline() {
       { maxHeight: "100%", duration: 0.5 },
       0
     )
-
     .fromTo(
       ".career-timeline",
       { opacity: 0 },
@@ -186,13 +180,6 @@ export function setAllTimeline() {
       ".career-section",
       { y: 0 },
       { y: "20%", duration: 0.5, delay: 0.2 },
-      0
-    );
-  } else {
-    careerTimeline.fromTo(
-      ".career-section",
-      { y: 0 },
-      { y: 0, duration: 0.5, delay: 0.2 },
       0
     );
   }

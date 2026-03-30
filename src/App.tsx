@@ -4,11 +4,13 @@ import "./App.css";
 const CharacterModel = lazy(() => import("./components/Character"));
 const MainContainer = lazy(() => import("./components/MainContainer"));
 import { LoadingProvider } from "./context/LoadingProvider";
+import { OrbFollower } from "./components/OrbFollower";
 
 const App = () => {
   return (
     <>
       <LoadingProvider>
+        <OrbFollower />
         <Suspense>
           <MainContainer>
             <Suspense>
@@ -22,3 +24,4 @@ const App = () => {
 };
 
 export default App;
+

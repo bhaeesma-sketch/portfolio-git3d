@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import setCharacter from "./utils/character";
 import setLighting from "./utils/lighting";
-import { useLoading } from "../../context/LoadingProvider";
+import { useLoading } from "../../context/LoadingContext";
 import handleResize from "./utils/resizeUtils";
 import {
   handleMouseMove,
@@ -11,7 +11,7 @@ import {
   handleTouchMove,
 } from "./utils/mouseUtils";
 import setAnimations from "./utils/animationUtils";
-import { setProgress } from "../Loading";
+import { setProgress } from "../utils/loadingProgress";
 
 const Scene = () => {
   const canvasDiv = useRef<HTMLDivElement | null>(null);
@@ -21,9 +21,10 @@ const Scene = () => {
 
   const [character, setChar] = useState<THREE.Object3D | null>(null);
   useEffect(() => {
-    if (canvasDiv.current) {
-      let rect = canvasDiv.current.getBoundingClientRect();
-      let container = { width: rect.width, height: rect.height };
+    const currentCanvas = canvasDiv.current;
+    if (currentCanvas) {
+      const rect = currentCanvas.getBoundingClientRect();
+      const container = { width: rect.width, height: rect.height };
       const aspect = container.width / container.height;
       const scene = sceneRef.current;
 
@@ -36,7 +37,7 @@ const Scene = () => {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.2;
-      canvasDiv.current.appendChild(renderer.domElement);
+      currentCanvas.appendChild(renderer.domElement);
 
       const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
       camera.position.z = 10;
@@ -45,34 +46,37 @@ const Scene = () => {
       camera.updateProjectionMatrix();
 
       let headBone: THREE.Object3D | null = null;
-      let screenLight: any | null = null;
+      let screenLight: THREE.Object3D | null = null;
       let mixer: THREE.AnimationMixer;
 
       const clock = new THREE.Clock();
 
       const light = setLighting(scene);
-      let progress = setProgress((value) => setLoading(value));
+      const progress = setProgress((value) => setLoading(value));
       const { loadCharacter } = setCharacter(renderer, scene, camera);
 
       loadCharacter().then((gltf) => {
         if (gltf) {
           const animations = setAnimations(gltf);
-          hoverDivRef.current && animations.hover(gltf, hoverDivRef.current);
+          const currentHover = hoverDivRef.current;
+          if (currentHover) {
+            animations.hover(gltf, currentHover);
+          }
           mixer = animations.mixer;
-          let character = gltf.scene;
-          setChar(character);
-          scene.add(character);
-          headBone = character.getObjectByName("spine006") || null;
-          screenLight = character.getObjectByName("screenlight") || null;
+          const loadedChar = gltf.scene;
+          setChar(loadedChar);
+          scene.add(loadedChar);
+          headBone = loadedChar.getObjectByName("spine006") || null;
+          screenLight = loadedChar.getObjectByName("screenlight") || null;
           
           // Force fix for violet emissive materials
-          character.traverse((node) => {
-            if ((node as any).isMesh) {
-              const mesh = node as THREE.Mesh;
-              if (mesh.material && (mesh.material as any).emissive) {
+          loadedChar.traverse((node) => {
+            if (node instanceof THREE.Mesh) {
+              const mesh = node;
+              if (mesh.material && (mesh.material as THREE.MeshStandardMaterial).emissive) {
                 const mat = mesh.material as THREE.MeshStandardMaterial;
                 // If it's a violet/pink emissive color, change it to sapphire blue
-                if (mat.emissive.getHex() === 0xfb8dff || mat.emissive.getHex() === 0xc481ff || mat.emissive.r > 0.5 && mat.emissive.b > 0.5) {
+                if (mat.emissive.getHex() === 0xfb8dff || mat.emissive.getHex() === 0xc481ff || (mat.emissive.r > 0.5 && mat.emissive.b > 0.5)) {
                    mat.emissive.setHex(0x6366f1);
                 }
               }
@@ -85,7 +89,7 @@ const Scene = () => {
             }, 2500);
           });
           window.addEventListener("resize", () =>
-            handleResize(renderer, camera, canvasDiv, character)
+            handleResize(renderer, camera, canvasDiv, loadedChar)
           );
         }
       });
@@ -99,7 +103,7 @@ const Scene = () => {
       let debounce: number | undefined;
       const onTouchStart = (event: TouchEvent) => {
         const element = event.target as HTMLElement;
-        debounce = setTimeout(() => {
+        debounce = window.setTimeout(() => {
           element?.addEventListener("touchmove", (e: TouchEvent) =>
             handleTouchMove(e, (x, y) => (mouse = { x, y }))
           );
@@ -132,7 +136,9 @@ const Scene = () => {
             interpolation.y,
             THREE.MathUtils.lerp
           );
-          light.setPointLight(screenLight);
+          if (screenLight instanceof THREE.Mesh && screenLight.material instanceof THREE.MeshStandardMaterial) {
+            light.setPointLight(screenLight as THREE.Mesh & { material: THREE.MeshStandardMaterial });
+          }
         }
         const delta = clock.getDelta();
         if (mixer) {
@@ -148,8 +154,8 @@ const Scene = () => {
         window.removeEventListener("resize", () =>
           handleResize(renderer, camera, canvasDiv, character!)
         );
-        if (canvasDiv.current) {
-          canvasDiv.current.removeChild(renderer.domElement);
+        if (currentCanvas) {
+          currentCanvas.removeChild(renderer.domElement);
         }
         if (landingDiv) {
           document.removeEventListener("mousemove", onMouseMove);
@@ -158,7 +164,7 @@ const Scene = () => {
         }
       };
     }
-  }, []);
+  }, [character, setLoading]);
 
   return (
     <>

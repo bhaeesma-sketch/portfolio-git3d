@@ -39,16 +39,16 @@ const Work = () => {
     const container = document.querySelector(".work-flex") as HTMLElement;
     if (!container) return;
 
-    let mm = gsap.matchMedia();
+    const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1025px)", () => {
       // Desktop: Ultra-Smooth Horizontal Scroll
       const getScrollAmount = () => {
-        let amount = container.scrollWidth - window.innerWidth;
+        const amount = container.scrollWidth - window.innerWidth;
         return amount > 0 ? amount : 0;
       };
 
-      let tl = gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".work-section",
           pin: true,
@@ -133,17 +133,19 @@ const Work = () => {
       {/* Background Parallax Text - Hidden on Mobile */}
       <h1 className="work-parallax-text" style={{ 
           position: 'absolute', 
-          top: '20%', 
-          left: '-20%', 
-          fontSize: '25vw', 
+          top: '25%', 
+          left: '-50%', 
+          fontSize: '30vw', 
           fontWeight: 900, 
           color: '#6366f1', 
-          opacity: 0.02,
+          opacity: 0.05,
           whiteSpace: 'nowrap',
           pointerEvents: 'none',
-          zIndex: 0
+          zIndex: 0,
+          letterSpacing: '-0.02em',
+          textTransform: 'uppercase'
       }}>
-        LIVE PRODUCTION LIVE PRODUCTION
+        LIVE PRODUCTION LIVE PRODUCTION LIVE PRODUCTION LIVE PRODUCTION
       </h1>
 
       <div className="work-container section-container">

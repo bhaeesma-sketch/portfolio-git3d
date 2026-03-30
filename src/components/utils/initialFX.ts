@@ -27,7 +27,7 @@ export function initialFX() {
   );
 
   gsap.fromTo(
-    ".landing-info-h2",
+    ".landing-info-headline",
     { opacity: 0, scale: 0.95 },
     {
       opacity: 1,

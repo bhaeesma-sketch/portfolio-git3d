@@ -12,6 +12,8 @@ import Work from "./Work";
 import setSplitText from "./utils/splitText";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLoading } from "../context/LoadingContext";
+import { initialFX } from "./utils/initialFX";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,6 +21,14 @@ const TechStack = lazy(() => import("./TechStack"));
 
 const MainContainer = ({ children }: PropsWithChildren) => {
   const [isDesktopView, setIsDesktopView] = useState<boolean>(window.innerWidth > 1024);
+
+  const { isLoading } = useLoading();
+
+  useEffect(() => {
+    if (!isLoading) {
+      initialFX();
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     // Premium Smooth Scroll Initialization

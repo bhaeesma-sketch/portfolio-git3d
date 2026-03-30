@@ -1,26 +1,32 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import "./styles/Landing.css";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { DecodeText } from "./DecodeText";
+import { Magnetic } from "./Magnetic";
+import { useLoading } from "../context/LoadingContext";
 
 const Landing = ({ children }: PropsWithChildren) => {
+  const { isLoading } = useLoading();
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setTimeout(() => setShowContent(true), 200); // Wait for preloader panels to split
+    }
+  }, [isLoading]);
+
   useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+    if (!showContent) return;
+
+    const tl = gsap.timeline({ defaults: { ease: "expo.out" }, delay: 0.1 });
     
     tl.from(".landing-intro h2", { 
       opacity: 0, 
       y: 50, 
       filter: "blur(10px)",
-      duration: 1.2 
-    })
-    .from(".landing-intro h1", { 
-      opacity: 0, 
-      y: 100,
-      rotateX: 45,
-      filter: "blur(20px)",
-      stagger: 0.2,
       duration: 1.5 
-    }, "-=0.8")
+    })
     .from(".landing-info h3", { 
       opacity: 0, 
       scale: 0.8,
@@ -28,8 +34,8 @@ const Landing = ({ children }: PropsWithChildren) => {
     }, "-=1")
     .from(".landing-info-headline", { 
       opacity: 0, 
-      y: 20, 
-      duration: 1.2, 
+      y: 40, 
+      duration: 1.5,
       ease: "power4.out" 
     }, "-=0.8");
     
@@ -39,27 +45,36 @@ const Landing = ({ children }: PropsWithChildren) => {
       duration: 2,
       repeat: -1,
       yoyo: true,
-      ease: "sine.inOut"
+      ease: "sine.inOut",
+      delay: 3
     });
-  }, []);
+  }, [showContent]);
 
   return (
     <>
       <div className="landing-section" id="landingDiv">
-        <div className="landing-container">
+        <div className="landing-container" style={{ opacity: showContent ? 1 : 0, transition: 'opacity 0.5s linear' }}>
           <div className="landing-intro">
-            <h2>Hello! I'm</h2>
-            <h1>
-              ABDUL
-              <br />
-              <span>BHAEES</span>
+            <Magnetic>
+              <h2>Hello! I'm</h2>
+            </Magnetic>
+            <h1 className="cyber-name">
+              {showContent && (
+                <>
+                  <DecodeText text="ABDUL" delay={0.1} /><br />
+                  <span><DecodeText text="BHAEES" delay={0.8} /></span>
+                </>
+              )}
             </h1>
           </div>
           <div className="landing-info">
-            <h3>A Creative</h3>
+            <Magnetic>
+              <h3>A Creative</h3>
+            </Magnetic>
             <div className="landing-info-h2-container">
               <h2 className="landing-info-headline">
-                Developer <span className="accent-text">& Designer</span>
+                Developer <br />
+                <span className="accent-text">&  Designer</span>
               </h2>
             </div>
           </div>

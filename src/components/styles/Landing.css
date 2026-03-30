@@ -230,20 +230,10 @@
   display: inline-block;
   margin-left: 10px;
 }
-.landing-info-h2::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 120%;
-  z-index: 3;
-  background-image: linear-gradient(
-    0deg,
-    var(--backgroundColor) 40%,
-    rgba(0, 0, 0, 0) 110%
-  );
-  top: 0;
-  left: 0;
+.landing-info-h2-container {
+  position: relative;
 }
+
 @media screen and (min-width: 500px) {
   .landing-circle2 {
     display: block;

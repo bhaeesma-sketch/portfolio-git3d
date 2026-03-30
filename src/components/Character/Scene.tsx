@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import setCharacter from "./utils/character";
 import setLighting from "./utils/lighting";
@@ -19,7 +19,6 @@ const Scene = () => {
   const sceneRef = useRef(new THREE.Scene());
   const { setLoading } = useLoading();
 
-  const [character, setChar] = useState<THREE.Object3D | null>(null);
   useEffect(() => {
     const currentCanvas = canvasDiv.current;
     if (currentCanvas) {
@@ -30,11 +29,11 @@ const Scene = () => {
 
       const renderer = new THREE.WebGLRenderer({
         alpha: true,
-        antialias: window.innerWidth > 768, // Disable antialias on low-end/mobile
+        antialias: window.innerWidth > 768, 
         powerPreference: "high-performance",
       });
       renderer.setSize(container.width, container.height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.2;
       currentCanvas.appendChild(renderer.domElement);
@@ -64,7 +63,6 @@ const Scene = () => {
           }
           mixer = animations.mixer;
           const loadedChar = gltf.scene;
-          setChar(loadedChar);
           scene.add(loadedChar);
           headBone = loadedChar.getObjectByName("spine006") || null;
           screenLight = loadedChar.getObjectByName("screenlight") || null;
@@ -75,7 +73,6 @@ const Scene = () => {
               const mesh = node;
               if (mesh.material && (mesh.material as THREE.MeshStandardMaterial).emissive) {
                 const mat = mesh.material as THREE.MeshStandardMaterial;
-                // If it's a violet/pink emissive color, change it to sapphire blue
                 if (mat.emissive.getHex() === 0xfb8dff || mat.emissive.getHex() === 0xc481ff || (mat.emissive.r > 0.5 && mat.emissive.b > 0.5)) {
                    mat.emissive.setHex(0x6366f1);
                 }
@@ -88,9 +85,9 @@ const Scene = () => {
               animations.startIntro();
             }, 2500);
           });
-          window.addEventListener("resize", () =>
-            handleResize(renderer, camera, canvasDiv, loadedChar)
-          );
+          
+          const handleRes = () => handleResize(renderer, camera, canvasDiv, loadedChar);
+          window.addEventListener("resize", handleRes);
         }
       });
 
@@ -117,16 +114,16 @@ const Scene = () => {
         });
       };
 
-      document.addEventListener("mousemove", (event) => {
-        onMouseMove(event);
-      });
+      document.addEventListener("mousemove", onMouseMove);
       const landingDiv = document.getElementById("landingDiv");
       if (landingDiv) {
         landingDiv.addEventListener("touchstart", onTouchStart);
         landingDiv.addEventListener("touchend", onTouchEnd);
       }
+      
+      let reqId: number;
       const animate = () => {
-        requestAnimationFrame(animate);
+        reqId = requestAnimationFrame(animate);
         if (headBone) {
           handleHeadRotation(
             headBone,
@@ -148,12 +145,10 @@ const Scene = () => {
       };
       animate();
       return () => {
+        cancelAnimationFrame(reqId);
         clearTimeout(debounce);
         scene.clear();
         renderer.dispose();
-        window.removeEventListener("resize", () =>
-          handleResize(renderer, camera, canvasDiv, character!)
-        );
         if (currentCanvas) {
           currentCanvas.removeChild(renderer.domElement);
         }
@@ -164,7 +159,7 @@ const Scene = () => {
         }
       };
     }
-  }, [character, setLoading]);
+  }, [setLoading]);
 
   return (
     <>

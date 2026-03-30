@@ -56,26 +56,29 @@ const Landing = ({ children }: PropsWithChildren) => {
         <div className="landing-container" style={{ opacity: showContent ? 1 : 0, transition: 'opacity 0.5s linear' }}>
           <div className="landing-intro">
             <Magnetic>
-              <h2>Hello! I'm</h2>
+              <h2 className="premium-glow">Hello! I'm</h2>
             </Magnetic>
-            <h1 className="cyber-name">
+            <h1 className="cyber-name" style={{ color: '#fff', textShadow: '0 0 20px rgba(99, 102, 241, 0.3)' }}>
               {showContent && (
                 <>
                   <DecodeText text="ABDUL" delay={0.1} /><br />
-                  <span><DecodeText text="BHAEES" delay={0.8} /></span>
+                  <span className="accent-text"><DecodeText text="BHAEES" delay={0.8} /></span>
                 </>
               )}
             </h1>
           </div>
           <div className="landing-info">
             <Magnetic>
-              <h3>A Creative</h3>
+              <h3 className="premium-glow">Pro Digital Architect</h3>
             </Magnetic>
             <div className="landing-info-h2-container">
               <h2 className="landing-info-headline">
-                Developer <br />
-                <span className="accent-text">&  Designer</span>
+                Fullstack Web <br />
+                <span className="accent-text">& Mobile Engineer</span>
               </h2>
+              <p style={{ opacity: 0.6, fontSize: '0.9rem', marginTop: '15px', maxWidth: '400px', lineHeight: '1.6' }}>
+                Expert in crafting high-performance iOS, Android, and Scalable Web Applications with elite 3D experiences.
+              </p>
             </div>
           </div>
         </div>

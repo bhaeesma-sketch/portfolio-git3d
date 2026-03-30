@@ -33,10 +33,10 @@ const About = () => {
       <div className="about-me">
         <h3 className="title premium-glow">The Story <span>So Far</span></h3>
         <p className="para">
-          Based in Muscat, Oman, I am a creative powerhouse specializing in full-stack architecture 
-          and immersive 3D web design. My mission is to push the boundaries of the traditional web, 
-          transforming complex code into high-performance, visually stunning business solutions 
-          that captivate audiences globaly.
+          Based in Muscat, Oman, I am a digital visionary specializing in **Titan-Class Fullstack 
+          Architectures** and **Elite Mobile (iOS & Android) Applications**. My mission is to 
+          redefine the digital landscape by merging complex engineering with high-performance 
+          3D visuals, delivering premium, scalable business ecosystems for a global clientele.
         </p>
       </div>
     </div>

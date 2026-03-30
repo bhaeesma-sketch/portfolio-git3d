@@ -64,9 +64,9 @@ export function setCharTimeline(
   if (window.innerWidth > 1024) {
     if (character) {
       tl1
-        .fromTo(character.position, { y: -8 }, { y: -7.5, duration: 1 }, 0)
-        .to(camera.position, { z: 25 }, 0)
-        .fromTo(".character-model", { x: 0 }, { x: "-20%", duration: 1 }, 0)
+        .fromTo(character.rotation, { y: 0 }, { y: 0.7, duration: 1 }, 0)
+        .to(camera.position, { z: 22, y: 13.1 }, 0)
+        .fromTo(".character-model", { x: 0 }, { x: "-25%", duration: 1 }, 0)
         .to(".landing-container", { opacity: 0, duration: 0.4 }, 0)
         .to(".landing-container", { y: "40%", duration: 0.8 }, 0)
         .fromTo(".about-me", { y: "-50%" }, { y: "0%", duration: 1 }, 0);
@@ -74,7 +74,7 @@ export function setCharTimeline(
       tl2
         .to(
           camera.position,
-          { z: 60, y: 5.5, duration: 6, delay: 2, ease: "power3.inOut" },
+          { z: 75, y: 8.4, duration: 6, delay: 2, ease: "power3.inOut" },
           0
         )
         .to(".about-section", { y: "30%", duration: 6 }, 0)

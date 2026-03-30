@@ -10,8 +10,8 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Email</h4>
             <p>
-              <a href="mailto:contactbhaees@gmail.com" data-cursor="disable">
-                contactbhaees@gmail.com
+              <a href="mailto:bhaesma@gmail.com" data-cursor="disable">
+                bhaesma@gmail.com
               </a>
             </p>
             <h4>Phone</h4>
@@ -19,6 +19,11 @@ const Contact = () => {
               <a href="tel:+96876324797" data-cursor="disable">
                 +968 7632 4797
               </a>
+            </p>
+            <h4>Location</h4>
+            <p>Oman</p>
+            <p style={{ marginTop: '1.5rem', fontWeight: 600, color: '#6366f1' }}>
+              Available for freelance and projects.
             </p>
           </div>
           <div className="contact-box">
@@ -60,7 +65,10 @@ const Contact = () => {
             <h2>
               Designed and Developed <br /> by <span>ABDUL BHAEES</span>
             </h2>
-            <h5>
+            <h3 style={{ marginTop: '2rem', fontSize: '1.2rem', textTransform: 'none', letterSpacing: 'normal', color: '#f0f9ff' }}>
+              "I turn ideas into real applications."
+            </h3>
+            <h5 style={{ marginTop: '3rem' }}>
               <MdCopyright /> 2026
             </h5>
           </div>

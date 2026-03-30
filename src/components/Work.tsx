@@ -10,50 +10,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projectData = [
   {
-    title: "B-HUB POS",
-    category: "Enterprise Store Ecosystem",
-    tools: "React, Tailwind, Node.js, PostgreSQL",
-    image: "/images/treetap_hero.png",
-    logo: "/logos/treetap_logo.png",
-    link: "https://treetap.shop"
-  },
-  {
-    title: "Impero Gold",
-    category: "Luxury FinTech Solution",
-    tools: "Next.js, Framer Motion, Live Rates API",
+    title: "E-commerce Website",
+    category: "A fully functional online store with product listings, cart, and secure checkout.",
+    tools: "Next.js, Tailwind, Stripe API",
     image: "/images/imperogold_hero.png",
-    logo: "/logos/imperogold_logo.png",
-    link: "https://imperodigolduae.com"
-  },
-  {
-    title: "Studiolisan",
-    category: "LMS Learning Platform",
-    tools: "TypeScript, React, AWS, MongoDB Cloud",
-    image: "/images/studiolisan_hero.jpg",
-    logo: "/logos/studiolisan_logo.png",
-    link: "https://studiolisan.com"
-  },
-  {
-    title: "NeonVoid",
-    category: "3D Animated Web Experience",
-    tools: "Three.js, GSAP, React, WebGL, Shaders",
-    image: "/images/neonvoid_hero.png",
     logo: "",
     link: "#"
   },
   {
-    title: "Luxe Residence",
-    category: "Premium Real Estate Platform",
-    tools: "Next.js, Framer Motion, Mapbox, Prisma",
-    image: "/images/luxeresidence_hero.png",
-    logo: "",
-    link: "#"
-  },
-  {
-    title: "Crypto Apex",
-    category: "Web3 Trading Dashboard",
-    tools: "React, WebSockets, Recharts, Solana SDK",
+    title: "Mobile App",
+    category: "A cross-platform mobile application with user authentication and real-time features.",
+    tools: "React Native, Firebase, Redux",
     image: "/images/cryptoapex_hero.png",
+    logo: "",
+    link: "#"
+  },
+  {
+    title: "Business Website",
+    category: "A responsive website designed for a brand with modern UI and fast performance.",
+    tools: "React, GSAP, WebGL",
+    image: "/images/neonvoid_hero.png",
     logo: "",
     link: "#"
   }

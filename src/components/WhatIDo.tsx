@@ -74,25 +74,26 @@ const WhatIDo = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>DEVELOP</h3>
-              <h4>Expertise</h4>
-              <p>
-                Crafting scalable web applications with a focus on high performance, 
-                clean architecture, and seamless user experiences.
-              </p>
-              <h5>Skillset & tools</h5>
-              <div className="what-content-flex">
-                <div className="what-tags">JavaScript</div>
-                <div className="what-tags">TypeScript</div>
-                <div className="what-tags">React</div>
-                <div className="what-tags">Node.js</div>
-                <div className="what-tags">Next.js</div>
-                <div className="what-tags">Three.js</div>
-                <div className="what-tags">GSAP</div>
-                <div className="what-tags">Tailwind</div>
-                <div className="what-tags">PostgreSQL</div>
-                <div className="what-tags">Docker</div>
+              <h3>MY SKILLS</h3>
+              <h4>Technical Arsenal</h4>
+              
+              <div style={{ marginTop: '15px' }}>
+                <h5 style={{ margin: '0 0 5px 0', color: '#6366f1' }}>Frontend:</h5>
+                <p style={{ margin: '0 0 15px 0', fontSize: '14px', opacity: 0.8 }}>HTML, CSS, JavaScript, React</p>
+                
+                <h5 style={{ margin: '0 0 5px 0', color: '#6366f1' }}>Backend:</h5>
+                <p style={{ margin: '0 0 15px 0', fontSize: '14px', opacity: 0.8 }}>Node.js, Express, Firebase</p>
+                
+                <h5 style={{ margin: '0 0 5px 0', color: '#6366f1' }}>Mobile:</h5>
+                <p style={{ margin: '0 0 15px 0', fontSize: '14px', opacity: 0.8 }}>Flutter / React Native</p>
+                
+                <h5 style={{ margin: '0 0 5px 0', color: '#6366f1' }}>Database:</h5>
+                <p style={{ margin: '0 0 15px 0', fontSize: '14px', opacity: 0.8 }}>MongoDB, Firebase</p>
+                
+                <h5 style={{ margin: '0 0 5px 0', color: '#6366f1' }}>Tools:</h5>
+                <p style={{ margin: '0 0 15px 0', fontSize: '14px', opacity: 0.8 }}>Git, Vercel, Figma</p>
               </div>
+
               <div className="what-arrow"></div>
             </div>
           </motion.div>
@@ -119,23 +120,16 @@ const WhatIDo = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>DESIGN</h3>
-              <h4>Creative Vision</h4>
-              <p>
-                Bridging the gap between design and code by creating interactive 
-                visual identities and intuitive user interfaces.
-              </p>
-              <h5>Skillset & tools</h5>
-              <div className="what-content-flex">
-                <div className="what-tags">Figma</div>
-                <div className="what-tags">UI/UX</div>
-                <div className="what-tags">Blender</div>
-                <div className="what-tags">Motion Design</div>
-                <div className="what-tags">Spline</div>
-                <div className="what-tags">After Effects</div>
-                <div className="what-tags">Prototypes</div>
-                <div className="what-tags">Branding</div>
-              </div>
+              <h3>SERVICES</h3>
+              <h4>What I Provide</h4>
+              <ul style={{ listStyleType: 'disc', paddingLeft: '20px', fontSize: '15px', lineHeight: '2', opacity: 0.8, marginTop: '20px' }}>
+                <li>Website Development (Business, E-commerce, Custom)</li>
+                <li>Mobile App Development (Android & iOS)</li>
+                <li>Full-Stack Web Applications</li>
+                <li>UI/UX Design Implementation</li>
+                <li>API Integration & Backend Development</li>
+                <li>Deployment & Hosting Setup</li>
+              </ul>
               <div className="what-arrow"></div>
             </div>
           </motion.div>

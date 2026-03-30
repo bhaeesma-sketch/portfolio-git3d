@@ -69,16 +69,20 @@ const Landing = ({ children }: PropsWithChildren) => {
           </div>
           <div className="landing-info">
             <Magnetic>
-              <h3 className="premium-glow">Pro Digital Architect</h3>
+              <h3 className="premium-glow">Full-Stack & Mobile App Developer</h3>
             </Magnetic>
             <div className="landing-info-h2-container">
               <h2 className="landing-info-headline">
-                Fullstack Web <br />
-                <span className="accent-text">& Mobile Engineer</span>
+                I Build Modern <br />
+                <span className="accent-text">& Powerful Apps</span>
               </h2>
-              <p style={{ opacity: 0.6, fontSize: '0.9rem', marginTop: '15px', maxWidth: '400px', lineHeight: '1.6' }}>
-                Expert in crafting high-performance iOS, Android, and Scalable Web Applications with elite 3D experiences.
+              <p style={{ opacity: 0.8, fontSize: '0.95rem', marginTop: '15px', maxWidth: '420px', lineHeight: '1.6' }}>
+                I build modern websites and powerful mobile applications that are fast, scalable, and user-friendly. From idea to deployment, I create complete digital solutions for businesses and startups.
               </p>
+              <div style={{ marginTop: '25px', display: 'flex', gap: '15px' }}>
+                 <a href="#work" className="hero-btn primary-btn">View My Work</a>
+                 <a href="#contact" className="hero-btn secondary-btn">Contact Me</a>
+              </div>
             </div>
           </div>
         </div>

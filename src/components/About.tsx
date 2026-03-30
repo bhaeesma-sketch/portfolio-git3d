@@ -31,13 +31,33 @@ const About = () => {
   return (
     <div className="about-section" id="about">
       <div className="about-me">
-        <h3 className="title premium-glow">The Story <span>So Far</span></h3>
-        <p className="para">
-          Based in Muscat, Oman, I am a digital visionary specializing in **Titan-Class Fullstack 
-          Architectures** and **Elite Mobile (iOS & Android) Applications**. My mission is to 
-          redefine the digital landscape by merging complex engineering with high-performance 
-          3D visuals, delivering premium, scalable business ecosystems for a global clientele.
+        <h3 className="title premium-glow">About <span>Me</span></h3>
+        <p className="para" style={{ marginBottom: "1rem" }}>
+          I am a passionate software developer specializing in full-stack web and mobile app development.
         </p>
+        <p className="para" style={{ marginBottom: "1rem" }}>
+          I design and build complete applications, including frontend interfaces, backend systems, and mobile apps for Android and iOS. My goal is to create clean, efficient, and high-performing products that provide a great user experience.
+        </p>
+        <p className="para">
+          I enjoy turning ideas into real-world applications and continuously improving my skills with modern technologies.
+        </p>
+
+        <h3 className="title premium-glow" style={{ marginTop: '3rem' }}>Why <span>Choose Me</span></h3>
+        <ul style={{ 
+            listStyleType: 'disc', 
+            paddingLeft: '20px', 
+            fontSize: '1.2rem', 
+            lineHeight: '2', 
+            opacity: 0.8, 
+            marginTop: '1rem',
+            color: '#f0f9ff'
+        }}>
+          <li>Clean and modern design</li>
+          <li>Fast and responsive performance</li>
+          <li>Complete solution (frontend + backend + mobile)</li>
+          <li>Reliable communication</li>
+          <li>Focus on quality and user experience</li>
+        </ul>
       </div>
     </div>
   );

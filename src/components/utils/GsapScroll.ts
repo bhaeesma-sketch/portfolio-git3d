@@ -42,9 +42,20 @@ export function setCharTimeline(
   });
   let screenLight: THREE.Mesh | undefined;
   character?.traverse((object: THREE.Object3D) => {
-    if (object.name.includes("Plane004") || object.name.includes("Plane002")) {
+    // Aggressively hide any non-character prop models that might clip the view
+    const n = object.name.toLowerCase();
+    if (n.includes("plane") || n.includes("monitor") || n.includes("screen") || n.includes("desk") || n.includes("table")) {
         object.visible = false;
     }
+    
+    // Specifically target the large white box mesh
+    if (object instanceof THREE.Mesh) {
+       // If it's a huge white plane (often name 'Plane004' or 'Plane')
+       if (n === "plane004" || n === "plane") {
+           object.visible = false;
+       }
+    }
+
     if (object.name === "screenlight" && object instanceof THREE.Mesh) {
       const mesh = object as THREE.Mesh;
       if (mesh.material instanceof THREE.MeshStandardMaterial) {

@@ -29,20 +29,12 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Social</h4>
             <a
-              href="https://github.com/bhaeesmasketch"
+              href="https://github.com/bhaeesma-sketch"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
             >
               Github <MdArrowOutward />
-            </a>
-            <a
-              href="https://www.linkedin.com"
-              target="_blank"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Linkedin <MdArrowOutward />
             </a>
             <a
               href="https://x.com"
@@ -53,7 +45,7 @@ const Contact = () => {
               Twitter <MdArrowOutward />
             </a>
             <a
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/bhaees"
               target="_blank"
               data-cursor="disable"
               className="contact-social"

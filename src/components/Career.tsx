@@ -7,8 +7,8 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const careerData = [
   {
-    role: "Senior Full Stack Dev",
-    company: "Current Production Hub",
+    role: "Senior Full Stack Developer",
+    company: "Tech Innovators LLC",
     year: "2023 - Present",
     description: "Leading the development of high-performance architectural solutions and premium 3D web ecosystems for global enterprise clients."
   },

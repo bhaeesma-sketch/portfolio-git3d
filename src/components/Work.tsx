@@ -41,44 +41,49 @@ const Work = () => {
 
   useGSAP(() => {
     if (!sectionRef.current || !flexRef.current) return;
+
     const section = sectionRef.current;
     const flex = flexRef.current;
 
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1025px)", () => {
-      // Ensure ScrollTrigger is properly set up for horizontal scroll
-      const getScrollAmount = () => -(flex.scrollWidth - window.innerWidth + 40);
+      // The overflow amount is how far we need to slide the track
+      // This is the ONLY correct formula for pinned horizontal scroll
+      const getOverflow = () => flex.scrollWidth - section.offsetWidth;
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          pin: true,
-          scrub: 1,
-          start: "top top",
-          end: () => `+=${flex.scrollWidth}`,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-        }
-      });
-
-      tl.to(flex, {
-        x: getScrollAmount,
-        ease: "none"
+      const st = ScrollTrigger.create({
+        trigger: section,
+        pin: true,
+        scrub: 1,
+        start: "top top",
+        // end = how many pixels of native scroll maps to the full horizontal distance
+        end: () => "+=" + getOverflow(),
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          // Directly drive the translateX based on scroll progress
+          gsap.set(flex, {
+            x: -getOverflow() * self.progress,
+          });
+        },
       });
 
       // Parallax background text
       gsap.to(".work-parallax-text", {
-        x: 800,
-        opacity: 0.06,
+        x: 600,
         ease: "none",
         scrollTrigger: {
           trigger: section,
           start: "top bottom",
           end: "bottom top",
-          scrub: 2
+          scrub: 2,
         }
       });
+
+      return () => {
+        st.kill();
+      };
     });
 
     mm.add("(max-width: 1024px)", () => {
@@ -93,7 +98,7 @@ const Work = () => {
           scrollTrigger: {
             trigger: flex,
             start: "top 85%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none reverse",
           }
         }
       );
@@ -104,7 +109,6 @@ const Work = () => {
 
   return (
     <div className="work-section" id="work" ref={sectionRef}>
-      {/* Parallax bg text - desktop only */}
       <h1 className="work-parallax-text" style={{
           position: 'absolute',
           top: '25%',
@@ -125,7 +129,7 @@ const Work = () => {
       <div className="work-container section-container">
         <div className="work-header">
           <h2 className="premium-glow">My <span>Live Projects</span></h2>
-          <p className="work-description">Real-world products I built and shipped for global clients — from enterprise POS systems to luxury fintech platforms.</p>
+          <p className="work-description">Real-world products I built and shipped — from enterprise POS systems to luxury fintech platforms.</p>
         </div>
 
         <div className="work-flex" ref={flexRef}>

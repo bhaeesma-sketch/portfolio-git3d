@@ -31,24 +31,25 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   }, [isLoading]);
 
   useEffect(() => {
-    // Premium Smooth Scroll Initialization
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 1,
-      lerp: 0.1,
+      wheelMultiplier: 0.8,
     });
 
-    // Synchronize ScrollTrigger with Lenis
-    lenis.on("scroll", ScrollTrigger.update);
+    // Critical: tell ScrollTrigger about EVERY Lenis scroll tick
+    // This prevents pinned sections from looping or resetting
+    lenis.on("scroll", ({ scroll }: { scroll: number }) => {
+      ScrollTrigger.update();
+      // Override GSAP's internal scroll reference so pin math is correct
+      document.documentElement.style.setProperty("--lenis-scroll", `${scroll}px`);
+    });
 
-    function update(time: number) {
+    gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
-    }
-
-    gsap.ticker.add(update);
-    gsap.ticker.lagSmoothing(0); // Disable lag smoothing for smoother scroll sync
+    });
+    gsap.ticker.lagSmoothing(0);
 
     const resizeHandler = () => {
       setSplitText();
@@ -57,11 +58,11 @@ const MainContainer = ({ children }: PropsWithChildren) => {
       ScrollTrigger.refresh();
     };
 
-    // Delay a light refresh to catch lazy-loaded heights
+    // Give images/3D assets time to load before locking scroll positions
     const refreshTimeout = setTimeout(() => {
-        lenis.resize();
-        ScrollTrigger.refresh();
-    }, 1500);
+      lenis.resize();
+      ScrollTrigger.refresh();
+    }, 2000);
 
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
@@ -69,7 +70,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     return () => {
       clearTimeout(refreshTimeout);
       window.removeEventListener("resize", resizeHandler);
-      gsap.ticker.remove(update);
+      gsap.ticker.remove((time) => { lenis.raf(time * 1000); });
       lenis.destroy();
     };
   }, []);

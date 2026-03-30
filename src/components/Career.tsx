@@ -8,21 +8,15 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const careerData = [
   {
     role: "Senior Full Stack Dev",
-    company: "TechNova Solutions",
-    year: "2023",
-    description: "Leading the development of scalable microservices and architectural redesign of core enterprise platforms using React and Node.js."
+    company: "Current Production Hub",
+    year: "2023 - Present",
+    description: "Leading the development of high-performance architectural solutions and premium 3D web ecosystems for global enterprise clients."
   },
   {
-    role: "Frontend Engineer",
-    company: "Creative Pulse Studio",
-    year: "2021",
-    description: "Developed high-performance interactive web experiences and built custom animation libraries for luxury brand portfolios."
-  },
-  {
-    role: "Full Stack Developer",
-    company: "Nexus Systems",
-    year: "2020",
-    description: "Engineered robust API systems and optimized database queries for a real-time POS analytics dashboard serving 10k+ daily users."
+    role: "Full Stack Freelancer",
+    company: "Self-Employed",
+    year: "2021 - Present",
+    description: "Crafting bespoke digital experiences, specializing in interactive 3D interfaces, high-end GSAP animations, and scalable full-stack applications."
   }
 ];
 

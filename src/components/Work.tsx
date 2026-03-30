@@ -26,6 +26,14 @@ const projectData = [
     link: "https://imperodigolduae.com"
   },
   {
+    title: "Impero Luxe App",
+    category: "Premium Cross-Platform Mobile App",
+    tools: "Flutter, Dart, Firebase, UI/UX",
+    image: "/images/impero_luxe_mobile.png",
+    logo: "",
+    link: "https://github.com/bhaeesma-sketch/impero-luxe-site.git"
+  },
+  {
     title: "Studiolisan",
     category: "LMS Learning Platform",
     tools: "TypeScript, React, AWS, MongoDB Cloud",

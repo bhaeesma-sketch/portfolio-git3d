@@ -10,6 +10,30 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projectData = [
   {
+    title: "B-HUB POS",
+    category: "Enterprise Store Ecosystem",
+    tools: "React, Tailwind, Node.js, PostgreSQL",
+    image: "/images/treetap_hero.png",
+    logo: "/logos/treetap_logo.png",
+    link: "https://treetap.shop"
+  },
+  {
+    title: "Impero Gold",
+    category: "Luxury FinTech Solution",
+    tools: "Next.js, Framer Motion, Live Rates API",
+    image: "/images/imperogold_hero.png",
+    logo: "/logos/imperogold_logo.png",
+    link: "https://imperodigolduae.com"
+  },
+  {
+    title: "Studiolisan",
+    category: "LMS Learning Platform",
+    tools: "TypeScript, React, AWS, MongoDB Cloud",
+    image: "/images/studiolisan_hero.jpg",
+    logo: "/logos/studiolisan_logo.png",
+    link: "https://studiolisan.com"
+  },
+  {
     title: "E-commerce Website",
     category: "A fully functional online store with product listings, cart, and secure checkout.",
     tools: "Next.js, Tailwind, Stripe API",

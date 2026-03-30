@@ -41,34 +41,39 @@ const Work = () => {
 
   useGSAP(() => {
     if (!sectionRef.current || !flexRef.current) return;
-    const container = flexRef.current;
-    
+    const section = sectionRef.current;
+    const flex = flexRef.current;
+
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1025px)", () => {
-      // Desktop: Restored Original Horizontal Scroll
+      // Ensure ScrollTrigger is properly set up for horizontal scroll
+      const getScrollAmount = () => -(flex.scrollWidth - window.innerWidth + 40);
+
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: section,
           pin: true,
-          scrub: 0.8,
+          scrub: 1,
           start: "top top",
-          end: () => `+=${container.scrollWidth}`,
+          end: () => `+=${flex.scrollWidth}`,
           invalidateOnRefresh: true,
+          anticipatePin: 1,
         }
       });
 
-      tl.to(flexRef.current, {
-        x: () => -(container.scrollWidth - window.innerWidth / 1.8),
-        ease: "power2.out"
+      tl.to(flex, {
+        x: getScrollAmount,
+        ease: "none"
       });
 
-      // Original Parallax background text
+      // Parallax background text
       gsap.to(".work-parallax-text", {
-        x: 1000,
-        opacity: 0.08,
+        x: 800,
+        opacity: 0.06,
+        ease: "none",
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: section,
           start: "top bottom",
           end: "bottom top",
           scrub: 2
@@ -77,20 +82,17 @@ const Work = () => {
     });
 
     mm.add("(max-width: 1024px)", () => {
-      // Mobile: Robust Vertical Entrance
-      gsap.fromTo(".work-box", 
-        { 
-          opacity: 0, 
-          y: 40 
-        },
+      gsap.fromTo(".work-box",
+        { opacity: 0, y: 50 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.2,
+          duration: 0.9,
+          stagger: 0.25,
+          ease: "power2.out",
           scrollTrigger: {
-            trigger: flexRef.current,
-            start: "top 90%",
+            trigger: flex,
+            start: "top 85%",
             toggleActions: "play none none reverse"
           }
         }
@@ -102,34 +104,34 @@ const Work = () => {
 
   return (
     <div className="work-section" id="work" ref={sectionRef}>
-      {/* Background Parallax Text - Hidden on Mobile */}
-      <h1 className="work-parallax-text" style={{ 
-          position: 'absolute', 
-          top: '25%', 
-          left: '-50%', 
-          fontSize: '30vw', 
-          fontWeight: 900, 
-          color: '#6366f1', 
-          opacity: 0.05,
+      {/* Parallax bg text - desktop only */}
+      <h1 className="work-parallax-text" style={{
+          position: 'absolute',
+          top: '25%',
+          left: '-30%',
+          fontSize: '28vw',
+          fontWeight: 900,
+          color: '#6366f1',
+          opacity: 0.04,
           whiteSpace: 'nowrap',
           pointerEvents: 'none',
           zIndex: 0,
           letterSpacing: '-0.02em',
           textTransform: 'uppercase'
       }}>
-        LIVE PRODUCTION LIVE PRODUCTION LIVE PRODUCTION LIVE PRODUCTION
+        SELECTED WORK SELECTED WORK
       </h1>
 
       <div className="work-container section-container">
         <div className="work-header">
-           <h2 className="premium-glow">Industry <span>Case Studies</span></h2>
-           <p className="work-description">Explore some of my high-impact, live production digital ecosystems developed for global clients.</p>
+          <h2 className="premium-glow">My <span>Live Projects</span></h2>
+          <p className="work-description">Real-world products I built and shipped for global clients — from enterprise POS systems to luxury fintech platforms.</p>
         </div>
 
         <div className="work-flex" ref={flexRef}>
           {projectData.map((project, index) => (
-            <motion.div 
-              className="work-box glass-card" 
+            <motion.div
+              className="work-box glass-card"
               key={index}
               whileHover={{ y: -15, scale: 1.01 }}
               transition={{ type: "spring", stiffness: 200, damping: 12 }}
@@ -137,12 +139,12 @@ const Work = () => {
             >
               <div className="work-info">
                 <div className="work-card-top">
-                   <div className="work-index">0{index + 1}</div>
-                   {project.logo && (
-                      <div className="work-project-logo">
-                         <img src={project.logo} alt="Project Logo" />
-                      </div>
-                   )}
+                  <div className="work-index">0{index + 1}</div>
+                  {project.logo && (
+                    <div className="work-project-logo">
+                      <img src={project.logo} alt="Project Logo" />
+                    </div>
+                  )}
                 </div>
 
                 <div className="work-title">
@@ -151,20 +153,20 @@ const Work = () => {
                 </div>
 
                 <div className="work-tools">
-                   <h5>Tech Arsenal:</h5>
-                   <p>{project.tools}</p>
+                  <h5>Tech Arsenal:</h5>
+                  <p>{project.tools}</p>
                 </div>
 
                 {project.link !== "#" && (
-                   <div className="view-project-link">
-                      Live Environment <span>↗</span>
-                   </div>
+                  <div className="view-project-link">
+                    Live Environment <span>↗</span>
+                  </div>
                 )}
               </div>
 
               <div className="work-image-wrapper">
-                 <WorkImage image={project.image} alt={project.title} />
-                 <div className="work-image-overlay"></div>
+                <WorkImage image={project.image} alt={project.title} />
+                <div className="work-image-overlay"></div>
               </div>
             </motion.div>
           ))}

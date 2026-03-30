@@ -5,12 +5,14 @@ export function setCharTimeline(
   character: THREE.Object3D<THREE.Object3DEventMap> | null,
   camera: THREE.PerspectiveCamera
 ) {
-  let intensity: number = 0;
-  setInterval(() => {
-    intensity = Math.random();
-  }, 200);
+  // Kill existing triggers to prevent stacking
+  ScrollTrigger.getById("charTL1")?.kill();
+  ScrollTrigger.getById("charTL2")?.kill();
+  ScrollTrigger.getById("charTL3")?.kill();
+
   const tl1 = gsap.timeline({
     scrollTrigger: {
+      id: "charTL1",
       trigger: ".landing-section",
       start: "top top",
       end: "bottom top",
@@ -20,6 +22,7 @@ export function setCharTimeline(
   });
   const tl2 = gsap.timeline({
     scrollTrigger: {
+      id: "charTL2",
       trigger: ".about-section",
       start: "center 55%",
       end: "bottom top",
@@ -29,6 +32,7 @@ export function setCharTimeline(
   });
   const tl3 = gsap.timeline({
     scrollTrigger: {
+      id: "charTL3",
       trigger: ".whatIDO",
       start: "top top",
       end: "bottom top",
@@ -36,24 +40,10 @@ export function setCharTimeline(
       invalidateOnRefresh: true,
     },
   });
-  let screenLight: THREE.Mesh | undefined, monitor: THREE.Mesh | undefined;
-  character?.children.forEach((object: THREE.Object3D) => {
-    if (object.name === "Plane004") {
-      object.children.forEach((child: THREE.Object3D) => {
-        if (child instanceof THREE.Mesh) {
-          const mesh = child as THREE.Mesh;
-          if (mesh.material instanceof THREE.Material) {
-            mesh.material.transparent = true;
-            mesh.material.opacity = 0;
-            if (mesh.material.name === "Material.027") {
-              monitor = mesh;
-              if ("color" in mesh.material) {
-                (mesh.material as THREE.MeshStandardMaterial).color.set("#FFFFFF");
-              }
-            }
-          }
-        }
-      });
+  let screenLight: THREE.Mesh | undefined;
+  character?.traverse((object: THREE.Object3D) => {
+    if (object.name.includes("Plane004") || object.name.includes("Plane002")) {
+        object.visible = false;
     }
     if (object.name === "screenlight" && object instanceof THREE.Mesh) {
       const mesh = object as THREE.Mesh;
@@ -62,7 +52,7 @@ export function setCharTimeline(
         mesh.material.opacity = 0;
         mesh.material.emissive.set("#C8BFFF");
         gsap.timeline({ repeat: -1, repeatRefresh: true }).to(mesh.material, {
-          emissiveIntensity: () => intensity * 8,
+          emissiveIntensity: () => Math.random() * 8,
           duration: () => Math.random() * 0.6,
           delay: () => Math.random() * 0.1,
         });
@@ -74,17 +64,17 @@ export function setCharTimeline(
   if (window.innerWidth > 1024) {
     if (character) {
       tl1
-        .fromTo(character.rotation, { y: 0 }, { y: 0.7, duration: 1 }, 0)
-        .to(camera.position, { z: 22 }, 0)
-        .fromTo(".character-model", { x: 0 }, { x: "-25%", duration: 1 }, 0)
+        .fromTo(character.position, { y: -8 }, { y: -7.5, duration: 1 }, 0)
+        .to(camera.position, { z: 25 }, 0)
+        .fromTo(".character-model", { x: 0 }, { x: "-20%", duration: 1 }, 0)
         .to(".landing-container", { opacity: 0, duration: 0.4 }, 0)
         .to(".landing-container", { y: "40%", duration: 0.8 }, 0)
-        .fromTo(".about-me", { y: "-50%" }, { y: "0%" }, 0);
+        .fromTo(".about-me", { y: "-50%" }, { y: "0%", duration: 1 }, 0);
 
       tl2
         .to(
           camera.position,
-          { z: 75, y: 8.4, duration: 6, delay: 2, ease: "power3.inOut" },
+          { z: 60, y: 5.5, duration: 6, delay: 2, ease: "power3.inOut" },
           0
         )
         .to(".about-section", { y: "30%", duration: 6 }, 0)
@@ -97,16 +87,6 @@ export function setCharTimeline(
         )
         .to(character.rotation, { y: 0.92, x: 0.12, delay: 3, duration: 3 }, 0)
         .to(neckBone!.rotation, { x: 0.6, delay: 2, duration: 3 }, 0);
-
-      if (monitor) {
-        tl2.to(monitor.material, { opacity: 1, duration: 0.8, delay: 3.2 }, 0)
-          .fromTo(
-            monitor.position,
-            { y: -10, z: 2 },
-            { y: 0, z: 0, delay: 1.5, duration: 3 },
-            0
-          );
-      }
 
       if (screenLight) {
         tl2.to(screenLight.material, { opacity: 1, duration: 0.8, delay: 4.5 }, 0);

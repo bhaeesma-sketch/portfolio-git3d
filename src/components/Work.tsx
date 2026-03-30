@@ -32,6 +32,30 @@ const projectData = [
     image: "/images/studiolisan_hero.jpg",
     logo: "/logos/studiolisan_logo.png",
     link: "https://studiolisan.com"
+  },
+  {
+    title: "NeonVoid",
+    category: "3D Animated Web Experience",
+    tools: "Three.js, GSAP, React, WebGL, Shaders",
+    image: "/images/neonvoid_hero.png",
+    logo: "",
+    link: "#"
+  },
+  {
+    title: "Luxe Residence",
+    category: "Premium Real Estate Platform",
+    tools: "Next.js, Framer Motion, Mapbox, Prisma",
+    image: "/images/luxeresidence_hero.png",
+    logo: "",
+    link: "#"
+  },
+  {
+    title: "Crypto Apex",
+    category: "Web3 Trading Dashboard",
+    tools: "React, WebSockets, Recharts, Solana SDK",
+    image: "/images/cryptoapex_hero.png",
+    logo: "",
+    link: "#"
   }
 ];
 

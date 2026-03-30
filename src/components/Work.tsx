@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 import gsap from "gsap";
@@ -35,24 +36,26 @@ const projectData = [
 ];
 
 const Work = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const flexRef = useRef<HTMLDivElement>(null);
+
   useGSAP(() => {
-    const container = document.querySelector(".work-flex") as HTMLElement;
-    if (!container) return;
+    if (!sectionRef.current || !flexRef.current) return;
 
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1025px)", () => {
       // Desktop: Ultra-Smooth Horizontal Scroll
       const getScrollAmount = () => {
-        const amount = container.scrollWidth - window.innerWidth;
-        return amount > 0 ? amount : 0;
+        if (!flexRef.current) return 0;
+        return flexRef.current.scrollWidth - window.innerWidth;
       };
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: ".work-section",
+          trigger: sectionRef.current,
           pin: true,
-          scrub: 1.5, // Heavier, more premium scrub
+          scrub: 1.5,
           start: "top top",
           end: () => `+=${getScrollAmount()}`,
           invalidateOnRefresh: true,
@@ -60,14 +63,17 @@ const Work = () => {
         }
       });
 
-      tl.to(".work-flex", {
+      tl.to(flexRef.current, {
         x: () => -getScrollAmount(),
         ease: "none"
       });
 
       // Cinematic Card Micro-Animations
       projectData.forEach((_, i) => {
-        tl.fromTo(`.work-box:nth-child(${i + 1})`, 
+        const box = `.work-box:nth-child(${i + 1})`;
+        const info = `${box} .work-info`;
+        
+        tl.fromTo(box, 
           { 
             scale: 0.9,
             rotateZ: -1,
@@ -80,11 +86,10 @@ const Work = () => {
             duration: 0.5,
             ease: "power2.out"
           }, 
-          (i / projectData.length) * 0.8 // Staggered over timeline
+          (i / projectData.length) * 0.8
         );
         
-        // Inner text parallax
-        tl.fromTo(`.work-box:nth-child(${i + 1}) .work-info`, 
+        tl.fromTo(info, 
            { x: 30 }, 
            { x: 0, duration: 0.5 }, 
            (i / projectData.length) * 0.8
@@ -95,7 +100,7 @@ const Work = () => {
         x: 800,
         opacity: 0.12,
         scrollTrigger: {
-          trigger: ".work-section",
+          trigger: sectionRef.current,
           start: "top bottom",
           end: "bottom top",
           scrub: 2
@@ -116,7 +121,7 @@ const Work = () => {
           duration: 0.8,
           stagger: 0.2,
           scrollTrigger: {
-            trigger: ".work-flex",
+            trigger: flexRef.current,
             start: "top 90%",
             toggleActions: "play none none reverse"
           }
@@ -125,11 +130,10 @@ const Work = () => {
     });
 
     return () => mm.revert();
-  }, []);
+  }, { scope: sectionRef });
 
   return (
-    <div className="work-section" id="work">
-      {/* Background Parallax Text */}
+    <div className="work-section" id="work" ref={sectionRef}>
       {/* Background Parallax Text - Hidden on Mobile */}
       <h1 className="work-parallax-text" style={{ 
           position: 'absolute', 
@@ -154,7 +158,7 @@ const Work = () => {
            <p className="work-description">Explore some of my high-impact, live production digital ecosystems developed for global clients.</p>
         </div>
 
-        <div className="work-flex">
+        <div className="work-flex" ref={flexRef}>
           {projectData.map((project, index) => (
             <motion.div 
               className="work-box glass-card" 

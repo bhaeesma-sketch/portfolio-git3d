@@ -41,6 +41,8 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     });
 
     // Synchronize ScrollTrigger with Lenis
+    lenis.on("scroll", ScrollTrigger.update);
+
     function update(time: number) {
       lenis.raf(time * 1000);
     }
@@ -56,7 +58,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     };
 
     // Delay a light refresh to catch lazy-loaded heights
-    setTimeout(() => {
+    const refreshTimeout = setTimeout(() => {
         lenis.resize();
         ScrollTrigger.refresh();
     }, 1500);
@@ -65,6 +67,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     window.addEventListener("resize", resizeHandler);
 
     return () => {
+      clearTimeout(refreshTimeout);
       window.removeEventListener("resize", resizeHandler);
       gsap.ticker.remove(update);
       lenis.destroy();
